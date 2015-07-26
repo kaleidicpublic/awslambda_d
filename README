@@ -13,3 +13,4 @@ libphobos2.so.0.67
 libevent-2.0.so.5
 libssl.so.1.0.0
 
+Probably is not safe to pass arguments in this fashion, so use with caution.
