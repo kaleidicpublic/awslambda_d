@@ -1,0 +1,6 @@
+dmd source/doit.d
+cp source/doit zipcontent/
+./mkzip.sh
+./create.sh
+./invoke.sh
+
