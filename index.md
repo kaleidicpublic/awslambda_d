@@ -10,6 +10,7 @@ Current supported runtimes (at least when I wrote the code, some months back) we
 First compile your D script on a linux machine:
 
 `
+
 module doit;
 import std.stdio;
 
@@ -21,6 +22,7 @@ void main(string[] args)
 	writefln("==");
 	writefln("bye");
 }
+
 `
 
 `dmd doit.d`
@@ -28,6 +30,7 @@ void main(string[] args)
 Then we need to create a javascript (node.js) module to fork to the binary.
 
 `
+
 'use strict';
 
 var child_process = require('child_process');
@@ -42,6 +45,7 @@ exports.handler = function(event, context) {
     context.succeed(stdout);
   });
 }
+
 `
 
 Since dmd links phobos dynamically on linux, and phobos/druntime aren't installed on the AWS lambda server, we will need to upload these to the servers and tell the application where to find them.  (I should really have appended to LD_LIBRARY_PATH as I did with PATH).
@@ -49,25 +53,30 @@ Since dmd links phobos dynamically on linux, and phobos/druntime aren't installe
 Now one can follow the regular instructions for AWS Lambda: create a .zip file with the D binary, the JS file, and the following libraries (update version numbers as appropriate):
 
 `
+
 libcrypto.so.1.0.0
 libphobos2.so.0.67
 libevent-2.0.so.5
 libssl.so.1.0.0
+
 `
 
 To create the lambda, use the aws command line tool as follows, changing region, function-name, zip-file name, role and handler as appropriate:
 
-`aws lambda create-function \
+`
+aws lambda create-function \
 --region us-west-2 \
 --function-name lambda \
 --zip-file fileb://./lambda.zip \
 --role arn:aws:iam::iam_number_here:role/lambda_basic_execution \
 --handler lambda.handler \
 --runtime nodejs
+
 `
 
 To invoke the lambda:
 `
+
 aws lambda invoke \
 --invocation-type RequestResponse \
 --function-name lambda \
@@ -75,10 +84,13 @@ aws lambda invoke \
 --log-type Tail \
 --payload '{"key1":"value1", "key2":"value2", "key3":"value3"}' \
 outputfile.txt
+
 `
 
 And to list lambda functions on server:
 `
+
 aws lambda list-functions \
 --max-items 10
+
 `
