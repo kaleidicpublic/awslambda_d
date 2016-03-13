@@ -1,0 +1,5 @@
+name "awslambda_d"
+description "Run D processes on Amazon AWS Lambda"
+copyright "Copyright © 2014,2015, Laeeth Isharc and Amazon"
+authors "Laeeth Isharc, Amazon"
+license "Boost"
