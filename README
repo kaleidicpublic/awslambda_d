@@ -6,7 +6,7 @@ http://blog.0x82.com/2014/11/24/aws-lambda-functions-in-go/
 
 You will need to edit create.sh to enter the ARN for the role.
 Ie change:
---role arn:aws:iam::149602047535:role/lambda_basic_execution
+--role arn:aws:iam::insertiamnumberhere:role/lambda_basic_execution
 
 Place the following files in zipcontent (versions/exact filenames
 will be system dependent).
